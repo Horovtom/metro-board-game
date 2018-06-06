@@ -14,10 +14,10 @@ public class Tile {
 
 	public string Type { get; protected set; }
 
-	public Tile(string type) {
+	public Tile(string type, Dictionary<Direction, Direction> connections) {
 		Rotation = 0;
 		Type = type;
-		connections = TileRepository.GetConnections(type);
+		this.connections = connections;
 	}
 
 	/// <summary>
@@ -28,6 +28,11 @@ public class Tile {
 		Direction rotatedB = (Direction)(((int)b + 4 - Rotation) % 4);
 		return connections[rotatedA] == rotatedB;
 	}
+
+	public override string ToString() {
+		return "[Tile: " + Type + ", rotation: " + Rotation + "]";
+	}
+
 
 	/// <summary>
 	/// Returns rotated direction that specified rotated direction is connected to.

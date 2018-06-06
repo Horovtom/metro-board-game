@@ -4,27 +4,32 @@ using UnityEngine;
 using System;
 
 public class TileStack {
-	private static Stack<string> tileStack;
+	private Stack<string> tileStack;
 
-	public static string PopStack() {
+	public int Length { get { return tileStack.Count; } }
+
+	public TileStack(List<string> names, Dictionary<string, int> tilesCounts) {
+		CreateStack(names, tilesCounts);
+	}
+
+	public string PopStack() {
 		return tileStack.Pop();
 	}
 
-	public static void CreateStack(Dictionary<string, int> tilesCounts) {
+	public void CreateStack(List<string> names, Dictionary<string, int> tilesCounts) {
 		tileStack = new Stack<string>();
-		string[] arr = new string[0];
-		tilesCounts.Keys.CopyTo(arr, 0);
-		for (int i = 0; i < arr.Length; i++) {
-			int count = tilesCounts[arr[i]];
+
+		for (int i = 0; i < names.Count; i++) {
+			int count = tilesCounts[names[i]];
 			for (int j = 0; j < count; j++) {
-				tileStack.Push(arr[i]);
+				tileStack.Push(names[i]);
 			}
 		}
 
 		ShuffleStack();
 	}
 
-	private static void ShuffleStack() {
+	private void ShuffleStack() {
 		List<string> shuffle = new List<string>(tileStack);
 
 		System.Random _random = new System.Random();

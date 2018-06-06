@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
+public class InputController : MonoBehaviour {
 
 	// Use this for initialization
-	void Start() {
-		DefaultConfigCreator.PresentConfig();
+	void Start () {
+		
 	}
 	
 	// Update is called once per frame
-	void Update() {
+	void Update () {
 		
 	}
 }

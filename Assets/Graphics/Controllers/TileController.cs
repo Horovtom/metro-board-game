@@ -5,11 +5,12 @@ using UnityEngine;
 public class TileController {
 	private static TileController instance;
 	public GameObject myGameObject;
+	private TileSpritesRepository tileSpritesRepository;
 
 	private Vector3 BOARD_TILE_OFFSET = new Vector3(-3.546f, -3.527f, 0);
 	private Vector3 TILE_SIZE = new Vector3(1.014f, 1.008f, 0);
-	public GameObject[,] tiles = new GameObject[8, 8];
-	public SpriteRenderer[,] tileSprites = new SpriteRenderer[8, 8];
+	public GameObject[,] tilesGO = new GameObject[Driver.Instance.BoardSize, Driver.Instance.BoardSize];
+	public SpriteRenderer[,] tilesSprites = new SpriteRenderer[Driver.Instance.BoardSize, Driver.Instance.BoardSize];
 
 	/// <summary>
 	/// This function will display tile with a given type at a given cell coordinate
@@ -18,22 +19,21 @@ public class TileController {
 	/// <param name="yCell">Number in range 0-8</param>
 	/// <param name="type">String representing the type of the cell</param>
 	/// <param name="rotation">Integer representing number of 90 degree rotations to the right</param> 
-	public void displayTile(int xCell, int yCell, string type, int rotation) {
-		Sprite s = TileRepository.GetSprite(type);
+	public void DisplayTile(int xCell, int yCell, string type, int rotation) {
+		Sprite s = tileSpritesRepository.GetSprite(type);
 		if (s == null) {
 			Debug.LogError("Failed to load sprite: " + type);
 			return;
 		}
 
-		if (xCell < 0 || yCell < 0 || xCell >= 8 || yCell >= 8) {
+		if (xCell < 0 || yCell < 0 || xCell >= Driver.Instance.BoardSize || yCell >= Driver.Instance.BoardSize) {
 			Debug.LogError("Cannot place cell at: " + xCell + "," + yCell + " because it is out of effective range!");
 			return;
 		}
 
 
-		if (tiles[xCell, yCell] == null) {
+		if (tilesGO[xCell, yCell] == null) {
 			GameObject go = new GameObject();
-			//TODO: COMPLETE
 			go.name = "Tile - " + xCell + "," + yCell;
 			go.transform.SetParent(myGameObject.transform, true);
            
@@ -46,20 +46,22 @@ public class TileController {
 			SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();
 			renderer.sortingLayerName = "Tiles";
 
-			tileSprites[xCell, yCell] = renderer;
-			tiles[xCell, yCell] = go;
+			tilesSprites[xCell, yCell] = renderer;
+			tilesGO[xCell, yCell] = go;
 		}
 
-		Debug.Log("Setting cell: " + xCell + "," + yCell + " to sprite: " + type);
-		tileSprites[xCell, yCell].sprite = s;
-		tileSprites[xCell, yCell].transform.Rotate(Vector3.forward * (90 * rotation));
+		//Debug.Log("Setting cell: " + xCell + "," + yCell + " to sprite: " + type);
+		tilesSprites[xCell, yCell].sprite = s;
+		tilesSprites[xCell, yCell].transform.rotation = Quaternion.identity;
+		tilesSprites[xCell, yCell].transform.Rotate(Vector3.forward * (90 * rotation));
+		tilesGO[xCell, yCell].SetActive(true);
 	}
 
 	/// <summary>
 	/// This function will display tile on specified cell coordinate
 	/// </summary>
-	public void displayTile(Tile t, int x, int y) {
-		displayTile(x, y, t.Type, t.Rotation);
+	public void DisplayTile(Tile t, int x, int y) {
+		DisplayTile(x, y, "tiles" + t.Type, t.Rotation);
 	}
 
 	/// <summary>
@@ -70,9 +72,20 @@ public class TileController {
 	public TileController(GameObject myGameObject) {
 		instance = this;
 		this.myGameObject = myGameObject;
+		tileSpritesRepository = new TileSpritesRepository();
 	}
 
 	public static TileController getInstance() {
 		return instance;
+	}
+
+	public void ResetBoard() {
+		Debug.Log("Reseting board");
+		for (int i = 0; i < Driver.Instance.BoardSize; i++) {
+			for (int j = 0; j < Driver.Instance.BoardSize; j++) {
+				if (tilesGO[i, j] != null)
+					tilesGO[i, j].SetActive(false);
+			}
+		}
 	}
 }

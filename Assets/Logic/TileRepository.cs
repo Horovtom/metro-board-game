@@ -4,27 +4,40 @@ using UnityEngine;
 using System;
 
 public class TileRepository {
+	private Dictionary<string, int> tilesCounts;
+	private Dictionary<string, Dictionary<Direction, Direction>> tileConnections;
+	private TileStack tileStack;
+	private List<string> tilesNames;
 
+	public TileRepository() {
+		CreateRepository();
+		CreateStack();
+	}
 
-	private static Dictionary<string, Sprite> tileSprites;
-	private static Dictionary<string, int> tilesCounts;
-	private static Dictionary<string, Dictionary<Direction, Direction>> tileConnections;
+	public void CreateStack() {
+		tileStack = new TileStack(tilesNames, tilesCounts);
+	}
 
-	public static void CreateRepository() {
-		LoadSprites();
+	public Tile PopStack() {
+		if (tileStack == null) {
+			Debug.LogError("tileStack was not initialized! Fixing...");
+			CreateStack();
+		}	
+		return GetTile(tileStack.PopStack());
+	}
+
+	public int LeftInStack() {
+		return tileStack.Length;
+	}
+
+	public void CreateRepository() {
 		LoadTileConfiguration();
 	}
 
-	/// <summary>
-	/// This function will initialize tile stack with tile counts according to TileRepository.
-	/// </summary>
-	public void InitializeTileStack() {
-		TileStack.CreateStack(tilesCounts);
-	}
-
-	private static void LoadTileConfiguration() {
+	private void LoadTileConfiguration() {
 		tileConnections = new Dictionary<string, Dictionary<Direction, Direction>>();
 		tilesCounts = new Dictionary<string, int>();
+		tilesNames = new List<string>();
 
 		DefaultConfigCreator.PresentConfig();
 		string configFile = PlayerPrefs.GetString("TilesConfig");
@@ -37,7 +50,8 @@ public class TileRepository {
 				throw new FormatException();
 			}
 
-			string tileName = "tiles" + (curr++);
+			string tileName = curr++.ToString();
+			tilesNames.Add(tileName);
 			tilesCounts[tileName] = int.Parse(words[0]);
 			//tilesCounts.Add(int.Parse(words[0]));
 			Dictionary<Direction, Direction> directions = new Dictionary<Direction, Direction>();
@@ -51,24 +65,25 @@ public class TileRepository {
 		}
 	}
 
-	private static void LoadSprites() {
-		tileSprites = new Dictionary<string, Sprite>();
-		Sprite[] sprites1 = Resources.LoadAll<Sprite>("Sprites/tiles1");
-		Sprite[] sprites2 = Resources.LoadAll<Sprite>("Sprites/tiles2");
-		Sprite[] sprites3 = Resources.LoadAll<Sprite>("Sprites/tiles3");
-
-		foreach (Sprite s in sprites1) {
-			tileSprites[s.name] = s;
-		}
-		foreach (Sprite s in sprites2) {
-			tileSprites[s.name] = s;
-		}
-		foreach (Sprite s in sprites3) {
-			tileSprites[s.name] = s;
-		}
+	public Tile GetTile(int type) {
+		return GetTile(type.ToString());
 	}
 
-	public static Dictionary<Direction, Direction> GetConnections(string type) {
+
+	public Tile GetTile(string type) {
+		if (tilesCounts == null) {
+			Debug.LogError("TileRepository was not instantiated! Fixing...");
+			CreateRepository();
+		}
+
+		if (!tilesCounts.ContainsKey(type))
+			throw new ArgumentException("Tile type: " + type + " does not exist!");
+		Tile t = new Tile(type, tileConnections[type]);
+		t.Rotation = 2;
+		return t;
+	}
+
+	public Dictionary<Direction, Direction> GetConnections(string type) {
 		if (!tileConnections.ContainsKey(type)) {
 			Debug.LogError("There is no tile that would be of type: " + type);
 			return null;
@@ -80,7 +95,5 @@ public class TileRepository {
 		return conn;
 	}
 
-	public static Sprite GetSprite(string type) {
-		return tileSprites[type];
-	}
+
 }

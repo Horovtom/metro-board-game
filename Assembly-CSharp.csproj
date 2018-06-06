@@ -51,15 +51,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Controllers\GameController.cs" />
-     <Compile Include="Assets\Controllers\SpriteController.cs" />
-     <Compile Include="Assets\Controllers\TileController.cs" />
      <Compile Include="Assets\DefaultConfigCreator.cs" />
-     <Compile Include="Assets\Graphics\Scripts\TileRepository.cs" />
+     <Compile Include="Assets\Driver\Driver.cs" />
+     <Compile Include="Assets\Driver\GameState.cs" />
+     <Compile Include="Assets\Graphics\Controllers\GameController.cs" />
+     <Compile Include="Assets\Graphics\Controllers\GraphicsController.cs" />
+     <Compile Include="Assets\Graphics\Controllers\InputController.cs" />
+     <Compile Include="Assets\Graphics\Controllers\SpriteController.cs" />
+     <Compile Include="Assets\Graphics\Controllers\TileController.cs" />
+     <Compile Include="Assets\Graphics\TileSpritesRepository.cs" />
      <Compile Include="Assets\Logic\Direction.cs" />
+     <Compile Include="Assets\Logic\Game.cs" />
      <Compile Include="Assets\Logic\Player.cs" />
+     <Compile Include="Assets\Logic\PlayerColor.cs" />
      <Compile Include="Assets\Logic\Tile.cs" />
+     <Compile Include="Assets\Logic\TileRepository.cs" />
      <Compile Include="Assets\Logic\TileStack.cs" />
+     <Compile Include="Assets\Utilities\Utilities.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

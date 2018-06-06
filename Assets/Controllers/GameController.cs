@@ -5,12 +5,12 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
-		
+	void Start() {
+		DefaultConfigCreator.PresentConfig();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 		
 	}
 }

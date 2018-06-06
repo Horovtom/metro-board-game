@@ -1,0 +1,48 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Controllers\SpriteController.cs">
+    <Files>
+      <File FileName="Assets\Controllers\SpriteController.cs" Line="60" Column="19" />
+      <File FileName="Assets\Controllers\TileController.cs" Line="55" Column="63" />
+      <File FileName="Assets\Graphics\Scripts\TileRepository.cs" Line="50" Column="1" />
+      <File FileName="Assets\Logic\Player.cs" Line="33" Column="3" />
+      <File FileName="Assets\DefaultConfigCreator.cs" Line="64" Column="23" />
+      <File FileName="Assets\Controllers\GameController.cs" Line="9" Column="40" />
+      <File FileName="Assets\Logic\TileStack.cs" Line="20" Column="23" />
+      <File FileName="Assets\Logic\Tile.cs" Line="27" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="metro-board-game" expanded="True">
+            <Node name="Assembly-CSharp" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="SpriteController.cs" selected="True" />
+              </Node>
+              <Node name="Graphics" expanded="True">
+                <Node name="Scripts" expanded="True" />
+              </Node>
+              <Node name="Logic" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>connections[rotatedA]</Value>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State name="__root__">
+          <Node name="metro-board-game" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\HackerX\Documents\Programming\Unity\metro-board-game\Assets\Logic\Tile.cs" line="27" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -21,10 +21,6 @@ public class Driver : MonoBehaviour {
 
 		graphicsController.State = GameState.GAME;
 		CreateGame(2);
-		gameController.ClickedOnTile(2, 1);
-		gameController.ClickedOnTile(3, 1);
-		gameController.ClickedOnTile(4, 1);
-
 	}
 	
 	// Update is called once per frame
@@ -33,8 +29,12 @@ public class Driver : MonoBehaviour {
 	}
 
 	public void CreateGame(int numPlayers) {
-		gameController.CreateGame(numPlayers, TilesChanged, ActivePlayerChanged, StationsChanged, PointsChanged);
+		gameController.CreateGame(numPlayers, TilesChanged, ScoreChanged, StationsChanged);
 	}
+
+    public void RegisterClickOnTile(int x, int y) {
+        gameController.ClickedOnTile(x, y);
+    }
 
 	public void TilesChanged(Tile[,] tiles) {
 		Debug.Log("Displaying changed tiles.");
@@ -46,18 +46,13 @@ public class Driver : MonoBehaviour {
 		}
 	}
 
-	public void ActivePlayerChanged(int obj) {
-		Debug.Log("Displaying changed player.");
-		//throw new System.NotImplementedException();
+	public void ScoreChanged(Dictionary<PlayerColor, int> obj, PlayerColor onTurn) {
+		Debug.Log("Event changed score.");
+        graphicsController.ScoreChanged(obj, onTurn);
 	}
 
 	void StationsChanged(PlayerColor[] obj) {
-		Debug.Log("Displaying changed stations.");
-		//throw new System.NotImplementedException();
-	}
-
-	void PointsChanged(int[] obj) {
-		Debug.Log("Displaying changed points.");
+		Debug.Log("Event changed stations.");
 		//throw new System.NotImplementedException();
 	}
 }

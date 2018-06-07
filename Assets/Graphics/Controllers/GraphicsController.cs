@@ -5,7 +5,7 @@ using System;
 
 public class GraphicsController : MonoBehaviour {
 	private SpriteController spriteController;
-
+    private ScoreDisplayController scoreDisplayController;
 
 	private GameState state;
 
@@ -25,10 +25,9 @@ public class GraphicsController : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start() {
+	void Awake() {
 		spriteController = Utilities.GetChildScript<SpriteController>(this.gameObject, "SpriteControllerGO");
-
-
+        scoreDisplayController = Utilities.GetChildScript<ScoreDisplayController>(this.transform.Find("Canvas").gameObject, "ScoreDisplayControllerGO");
 	}
 	
 	// Update is called once per frame
@@ -58,4 +57,8 @@ public class GraphicsController : MonoBehaviour {
 	public void CleanBoard() {
 		spriteController.CleanBoard();
 	}
+
+    public void ScoreChanged(Dictionary<PlayerColor, int> obj, PlayerColor onTurn) {
+        scoreDisplayController.UpdateScores(obj, onTurn);
+    }
 }

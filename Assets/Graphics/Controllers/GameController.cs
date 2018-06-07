@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start() {
+	void Awake() {
 		tileRepository = new TileRepository();
 	}
 	
@@ -23,10 +23,10 @@ public class GameController : MonoBehaviour {
 		
 	}
 
-	public void CreateGame(int numPlayers, Action<Tile[,]> tileChangedCb, Action<int> activePlayerChangedCb, Action<PlayerColor[]> stationsChangedCb, Action<int[]> pointsChangedCb) {
+	public void CreateGame(int numPlayers, Action<Tile[,]> tileChangedCb, Action<Dictionary<PlayerColor, int>, PlayerColor> scoreChangedCb, Action<PlayerColor[]> stationsChangedCb) {
 		Debug.Log("Creating new game for " + numPlayers + " players.");
 		game = new Game(numPlayers, tileRepository);
-		game.RegisterCallbacks(tileChangedCb, activePlayerChangedCb, stationsChangedCb, pointsChangedCb);
+		game.RegisterCallbacks(tileChangedCb, scoreChangedCb, stationsChangedCb);
 	}
 
 	public void ClickedOnTile(int x, int y) {

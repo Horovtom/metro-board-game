@@ -55,12 +55,17 @@ public class TileRepository {
 			tilesCounts[tileName] = int.Parse(words[0]);
 			//tilesCounts.Add(int.Parse(words[0]));
 			Dictionary<Direction, Direction> directions = new Dictionary<Direction, Direction>();
+            bool[] directionsUsed = new bool[4];
 			for (int i = 0; i < 4; i++) {
 				Direction from = (Direction)Enum.Parse(typeof(Direction), words[i * 2 + 1]);
 				Direction where = (Direction)Enum.Parse(typeof(Direction), words[i * 2 + 2]);
-
+                directionsUsed[(int)from] = true;
 				directions[from] = where;
-			}
+			}   
+            if (!(directionsUsed[0] && directionsUsed[1] && directionsUsed[2] && directionsUsed[3])) {
+                throw new FormatException("Tile: " + tileName + " has invalid connections format!" + Environment.NewLine + "Line: " + line);
+            }
+
 			tileConnections[tileName] = directions;
 		}
 	}

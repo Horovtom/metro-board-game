@@ -7,8 +7,8 @@ public class TileController {
 	public GameObject myGameObject;
 	private TileSpritesRepository tileSpritesRepository;
 
-	private Vector3 BOARD_TILE_OFFSET = new Vector3(-3.546f, -3.527f, 0);
-	private Vector3 TILE_SIZE = new Vector3(1.014f, 1.008f, 0);
+	public static Vector3 BOARD_TILE_OFFSET = new Vector3(-3.546f, -3.527f, 0);
+	public static Vector3 TILE_SIZE = new Vector3(1.014f, 1.008f, 0);
 	public GameObject[,] tilesGO = new GameObject[Driver.Instance.BoardSize, Driver.Instance.BoardSize];
 	public SpriteRenderer[,] tilesSprites = new SpriteRenderer[Driver.Instance.BoardSize, Driver.Instance.BoardSize];
 

@@ -66,7 +66,7 @@ public class DefaultConfigCreator {
 			"2 N N S W W E E S" + Environment.NewLine +
 			"2 W W S N N E E S" + Environment.NewLine +
 			"2 S S N E E W W N" + Environment.NewLine +
-			"2 W W N S S W W N" + Environment.NewLine +
+			"2 E E N S S W W N" + Environment.NewLine +
 
 			"4 W S S N N E E W" + Environment.NewLine +
 			"4 S E E W W N N S" + Environment.NewLine +

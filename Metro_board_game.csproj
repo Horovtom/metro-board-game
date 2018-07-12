@@ -87,6 +87,7 @@
     <Compile Include="Assets\Graphics\Controllers\ScoreDisplayController.cs" />
     <Compile Include="Assets\Graphics\Controllers\SpriteController.cs" />
     <Compile Include="Assets\Graphics\Controllers\TileController.cs" />
+    <Compile Include="Assets\Graphics\Controllers\TileInHandController.cs" />
     <Compile Include="Assets\Graphics\TileSpritesRepository.cs" />
     <Compile Include="Assets\Logic\Direction.cs" />
     <Compile Include="Assets\Logic\Game.cs" />

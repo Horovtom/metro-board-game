@@ -53,6 +53,7 @@ public class Game {
         playerOnTurn = (playerOnTurn + 1) % numPlayers;
         Debug.Log("Player on turn: " + playerOnTurn);
         if (cbScoreChanged != null)  cbScoreChanged(GetPoints(), (PlayerColor)playerOnTurn);
+        Driver.Instance.TileInHandChanged(playersHands[playerOnTurn].Type);
     }
 
     private void InitialHandDraw() {
@@ -61,6 +62,8 @@ public class Game {
         for (int i = 0; i < numPlayers; i++) {
             DrawForPlayer(i);
         }
+        
+        Driver.Instance.TileInHandChanged(playersHands[playerOnTurn].Type);
     }
 
     private void DrawForPlayer(int i) {
@@ -89,7 +92,7 @@ public class Game {
     }
 
     private bool WouldBeValidMap(Tile t, int x, int y) {
-        //TODO: IMPLEMENT
+        
         //Bottom line:
         if (y == 0) {
             if (t.IsConnected(Direction.S, Direction.S)) return false;

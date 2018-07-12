@@ -88,4 +88,8 @@ public class TileController {
 			}
 		}
 	}
+
+    public Sprite GetTileSprite(string type) {
+        return tileSpritesRepository.GetSprite("tiles" + type);
+    }
 }

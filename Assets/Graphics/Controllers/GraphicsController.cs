@@ -6,8 +6,9 @@ using System;
 public class GraphicsController : MonoBehaviour {
 	private SpriteController spriteController;
     private ScoreDisplayController scoreDisplayController;
+    private TileInHandController tileInHandController;
 
-	private GameState state;
+    private GameState state = GameState.GAME;
 
 	public GameState State {
 		get { return state; }
@@ -24,11 +25,18 @@ public class GraphicsController : MonoBehaviour {
 		}
 	}
 
+
+
 	// Use this for initialization
 	void Awake() {
 		spriteController = Utilities.GetChildScript<SpriteController>(this.gameObject, "SpriteControllerGO");
         scoreDisplayController = Utilities.GetChildScript<ScoreDisplayController>(this.transform.Find("Canvas").gameObject, "ScoreDisplayControllerGO");
-	}
+        tileInHandController = Utilities.GetChildScript<TileInHandController>(this.transform.Find("Canvas").gameObject, "TileInHandControllerGO");
+
+        if (spriteController == null || scoreDisplayController == null || tileInHandController == null) {
+            Debug.LogError("Controller not found!");
+        }
+    }
 	
 	// Update is called once per frame
 	void Update() {
@@ -60,5 +68,10 @@ public class GraphicsController : MonoBehaviour {
 
     public void ScoreChanged(Dictionary<PlayerColor, int> obj, PlayerColor onTurn) {
         scoreDisplayController.UpdateScores(obj, onTurn);
+    }
+
+    public void TileInHandChanged(string type) {
+        tileInHandController.ChangeTileInHandImage(spriteController.GetTileSprite(type));
+
     }
 }

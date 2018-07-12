@@ -9,6 +9,7 @@ public class Driver : MonoBehaviour {
 	private InputController inputController;
 	private GraphicsController graphicsController;
 	private GameController gameController;
+   
 
 	public Driver() {
 		Instance = this;
@@ -19,8 +20,12 @@ public class Driver : MonoBehaviour {
 		graphicsController = Utilities.GetChildScript<GraphicsController>(this.gameObject, "GraphicsControllerGO");
 		gameController = Utilities.GetChildScript<GameController>(this.gameObject, "GameControllerGO");
 
-		graphicsController.State = GameState.GAME;
+        if (inputController == null || graphicsController == null || gameController == null) {
+            Debug.LogError("Controller not found!");
+        }
+		
 		CreateGame(2);
+        graphicsController.State = GameState.GAME;
 	}
 	
 	// Update is called once per frame
@@ -50,6 +55,10 @@ public class Driver : MonoBehaviour {
 		Debug.Log("Event changed score.");
         graphicsController.ScoreChanged(obj, onTurn);
 	}
+
+    public void TileInHandChanged(string type) {
+        graphicsController.TileInHandChanged(type);
+    }
 
 	void StationsChanged(PlayerColor[] obj) {
 		Debug.Log("Event changed stations.");

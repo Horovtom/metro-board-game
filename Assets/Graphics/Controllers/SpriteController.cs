@@ -3,45 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpriteController : MonoBehaviour {
-	private TileController tileController;
-	private GameObject tileControllerGO;
+    private TileController tileController;
+    private GameObject tileControllerGO;
 
-    
-	public Sprite boardBackground;
 
-	private void InstantiateTileController() {
-		tileControllerGO = new GameObject();
-		tileControllerGO.name = "TileControllerGO";
-		tileControllerGO.transform.SetParent(this.transform, true);
-		tileController = new TileController(tileControllerGO);
-		tileControllerGO.SetActive(false);
-	}
+    public Sprite boardBackground;
 
-	void Awake() {
-		InstantiateTileController();
-	}
+    private void InstantiateTileController() {
+        tileControllerGO = new GameObject();
+        tileControllerGO.name = "TileControllerGO";
+        tileControllerGO.transform.SetParent(this.transform, true);
+        tileController = new TileController(tileControllerGO);
+        tileControllerGO.SetActive(false);
+    }
 
-	// Use this for initialization
-	void Start() {
+    void Awake() {
+        InstantiateTileController();
+    }
 
-	}
+    // Use this for initialization
+    void Start() {
 
-	/// <summary>
-	/// This function will instantiate the board sprite.
-	/// </summary>
-	public void displayBoard() {
-		CreateBoardSprite();
-		tileControllerGO.SetActive(true);
-	}
+    }
 
-	void CreateBoardSprite() {
-		GameObject go = new GameObject();
-		go.name = "Board Sprite";
-		go.transform.SetParent(this.transform, true);
-		SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();
-		renderer.sortingLayerName = "Board";
-		renderer.sprite = Resources.Load("Sprites/board", typeof(Sprite)) as Sprite;
-	}
+    /// <summary>
+    /// This function will instantiate the board sprite.
+    /// </summary>
+    public void displayBoard() {
+        CreateBoardSprite();
+        tileControllerGO.SetActive(true);
+    }
+
+    void CreateBoardSprite() {
+        GameObject go = new GameObject();
+        go.name = "Board Sprite";
+        go.transform.SetParent(this.transform, true);
+        SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();
+        renderer.sortingLayerName = "Board";
+        renderer.sprite = Resources.Load("Sprites/board", typeof(Sprite)) as Sprite;
+    }
+
+    public Sprite GetTileSprite(string type) {
+        return tileController.GetTileSprite(type);
+    } 
 
 	public void DisplayTile(Tile t, int x, int y) {
 		tileController.DisplayTile(t, x, y);
